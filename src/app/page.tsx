@@ -12,6 +12,9 @@ export default function Home() {
     console.log(hash);
     setHash(hash);
   }
+  const onSign = (signature: string) => {
+
+  }
 
   const onSigning = (signature: string) => {
     console.log(signature)
@@ -31,7 +34,6 @@ export default function Home() {
       <div className="relative flex flex-col place-items-center">
        <HashInput onLookup={onLookup} />
        {hash && <DisplayContent hash={hash} />}
-
        <SignHash hash={hash} onSigning={onSigning} />
       </div>
 
