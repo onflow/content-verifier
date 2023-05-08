@@ -14,7 +14,7 @@ export const  SignHash = ({hash, onSigning}: SignHashProps) => {
 
     return (
         <div>
-            <button className="m-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => signHash()}>Sign Hash</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => signHash()}>Sign Hash</button>
             </div>
     )
 
