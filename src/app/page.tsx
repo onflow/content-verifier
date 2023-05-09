@@ -1,10 +1,8 @@
 "use client";
-import Image from "next/image";
 import { HashInput } from "./components/HashInput";
 import { DisplayContent } from "./components/DisplayContent";
 import { useState } from "react";
 import { SignHash } from "./components/SignHash";
-import * as verifier from "./fcl-verifier";
 
 import * as fcl from "@onflow/fcl";
 
@@ -12,8 +10,9 @@ export default function Home() {
   const [hash, setHash] = useState<string>(
     "QmQqzMTavQgT4f4T5v6PWBp7XNKtoPmC9jvn12WPT3gkSE"
   );
+  const [isVerified, setIsVerified] = useState<boolean | null>(false)
   const onLookup = async (hash: string) => {
-    console.log(hash);
+    setIsVerified(null)
     setHash(hash);
 
     const hashInfo = await fcl.query({
@@ -34,14 +33,21 @@ export default function Home() {
         }
       `,
       args: (arg: any, t: any) => [arg(hash, t.String)],
-    });
-    console.log(hashInfo);
-  };
+    })
+    const isVerified = await fcl.AppUtils.verifyUserSignatures(
+      Buffer.from(hashInfo.hash).toString("hex"),
+      [{f_type: "CompositeSignature", f_vsn: "1.0.0", addr: hashInfo.address, keyId: 1, signature: hashInfo.signature}],
+    )
+
+    setIsVerified(isVerified)
+
+  }
   const onSign = async () => {
     // use fcl to sign hash and return signature
     try {
       const MSG = Buffer.from(hash).toString("hex");
-      const [{ signature }] = await fcl.currentUser.signUserMessage(MSG);
+      const sign = await fcl.currentUser.signUserMessage(MSG);
+      const [{ signature }] = sign
       onSigning(hash, signature);
     } catch (error) {
       console.log(error);
@@ -89,7 +95,7 @@ export default function Home() {
 
       <div className="relative flex flex-col place-items-center">
         <HashInput onLookup={onLookup} />
-        {hash && <DisplayContent hash={hash} />}
+        {hash && <DisplayContent hash={hash} isVerified={isVerified} />}
         <SignHash onSign={onSign} />
       </div>
 
