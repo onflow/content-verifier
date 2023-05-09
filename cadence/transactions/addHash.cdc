@@ -1,6 +1,6 @@
 import ContentVerifier from 0x9e107eadd013f40e
 
-transaction {
+transaction (hash: String, signature: String) {
 
   let hashTableRef: &ContentVerifier.HashTable
   let address: Address
@@ -13,6 +13,6 @@ transaction {
   }
 
   execute {
-    self.hashTableRef.addHash(hash: "test hash", address: self.address, signature: "test signature");
+    self.hashTableRef.addHash(hash: hash, address: self.address, signature: signature);
   }
 }
