@@ -1,24 +1,24 @@
 {
-	"networks": {
-		"emulator": "127.0.0.1:3569",
-		"mainnet": "access.mainnet.nodes.onflow.org:9000",
-		"sandboxnet": "access.sandboxnet.nodes.onflow.org:9000",
-		"testnet": "access.devnet.nodes.onflow.org:9000"
-	},
-	"accounts": {
-		"content-verifier": {
-			"address": "9e107eadd013f40e",
-			"key": {
-				"type": "file",
-				"location": "content-verifier.pkey"
-			}
-		},
-		"emulator-account": {
-			"address": "f8d6e0586b0a20c7",
-			"key": "0460c31922f1bc0dbc1e304082e34f39c599f1c878ca2764e93f750edf8aadf6"
-		}
-	},
-	"contracts": {
-		"ContentVerifier": "./cadence/contracts/ContentVerifier.cdc"
-	}
+  "networks": {
+    "emulator": "127.0.0.1:3569",
+    "mainnet": "access.mainnet.nodes.onflow.org:9000",
+    "sandboxnet": "access.sandboxnet.nodes.onflow.org:9000",
+    "testnet": "access.devnet.nodes.onflow.org:9000"
+  },
+  "accounts": {
+    "content-verifier": {
+      "address": "9e107eadd013f40e",
+      "key": {
+        "type": "file",
+        "location": "content-verifier.pkey"
+      }
+    },
+    "emulator-account": {
+      "address": "f8d6e0586b0a20c7",
+      "key": "0460c31922f1bc0dbc1e304082e34f39c599f1c878ca2764e93f750edf8aadf6"
+    }
+  },
+  "contracts": {
+    "ContentVerifier": "./cadence/contracts/ContentVerifier.cdc"
+  }
 }

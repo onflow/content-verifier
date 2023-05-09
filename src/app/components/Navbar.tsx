@@ -1,7 +1,7 @@
-'use client';
-import React from 'react';
-import Image from 'next/image';
-import * as verifier from '@/app/fcl-verifier';
+"use client";
+import React from "react";
+import Image from "next/image";
+import * as verifier from "@/app/fcl-verifier";
 
 export const Navbar = () => {
   return (

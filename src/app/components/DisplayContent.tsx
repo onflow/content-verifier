@@ -1,8 +1,8 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 //const IPFS_ROOT = "https://ipfs.io/ipfs/";
-const IPFS_ROOT = 'https://ipfs.thirdwebcdn.com/ipfs/';
-export const DisplayContent = ({ hash }: { hash: String }) => {
+const IPFS_ROOT = "https://ipfs.thirdwebcdn.com/ipfs/";
+export const DisplayContent = ({ hash }: { hash: string | undefined }) => {
   const fullLink = `${IPFS_ROOT}${hash}`;
   return (
     <div className="m-2">

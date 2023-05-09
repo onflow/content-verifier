@@ -1,16 +1,16 @@
-'use client';
-import Image from 'next/image';
-import { HashInput } from './components/HashInput';
-import { DisplayContent } from './components/DisplayContent';
-import { useState } from 'react';
-import { SignHash } from './components/SignHash';
-import * as verifier from './fcl-verifier';
+"use client";
+import Image from "next/image";
+import { HashInput } from "./components/HashInput";
+import { DisplayContent } from "./components/DisplayContent";
+import { useState } from "react";
+import { SignHash } from "./components/SignHash";
+import * as verifier from "./fcl-verifier";
 
-import * as fcl from '@onflow/fcl';
+import * as fcl from "@onflow/fcl";
 
 export default function Home() {
   const [hash, setHash] = useState<string>(
-    'QmQqzMTavQgT4f4T5v6PWBp7XNKtoPmC9jvn12WPT3gkSE'
+    "QmQqzMTavQgT4f4T5v6PWBp7XNKtoPmC9jvn12WPT3gkSE"
   );
   const onLookup = async (hash: string) => {
     console.log(hash);
@@ -33,14 +33,14 @@ export default function Home() {
           return hashInfo
         }
       `,
-      args: (arg, t) => [arg(hash, t.String)],
+      args: (arg: any, t: any) => [arg(hash, t.String)],
     });
     console.log(hashInfo);
   };
   const onSign = async () => {
     // use fcl to sign hash and return signature
     try {
-      const MSG = Buffer.from(hash).toString('hex');
+      const MSG = Buffer.from(hash).toString("hex");
       const [{ signature }] = await fcl.currentUser.signUserMessage(MSG);
       onSigning(hash, signature);
     } catch (error) {
@@ -72,10 +72,13 @@ export default function Home() {
           }
         }
       `,
-      args: (arg, t) => [arg(hash, t.String), arg(signature, t.String)],
+      args: (arg: any, t: any) => [
+        arg(hash, t.String),
+        arg(signature, t.String),
+      ],
     });
 
-    fcl.tx(transactionId).subscribe((res) => console.log(res.status));
+    fcl.tx(transactionId).subscribe((res: any) => console.log(res.status));
   };
 
   return (
