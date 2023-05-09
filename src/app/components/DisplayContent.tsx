@@ -1,14 +1,17 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-const IPFS_ROOT = "https://ipfs.io/ipfs/";
-export const DisplayContent = ({hash}: {hash: String} ) => {
-    return (
-        <div className="m-2">
-            <Image src={`${IPFS_ROOT}${hash}`} 
-            width="500"
-            height="500"
-            alt="IPFS Image"
-            />
-            </div>
-    )
-}
+//const IPFS_ROOT = "https://ipfs.io/ipfs/";
+const IPFS_ROOT = "https://ipfs.thirdwebcdn.com/ipfs/";
+export const DisplayContent = ({ hash }: { hash: string | undefined }) => {
+  const fullLink = `${IPFS_ROOT}${hash}`;
+  return (
+    <div className="m-2">
+      {hash && (
+        <>
+          <Image src={fullLink} width="500" height="500" alt="IPFS Image" />
+          <span>{fullLink}</span>
+        </>
+      )}
+    </div>
+  );
+};

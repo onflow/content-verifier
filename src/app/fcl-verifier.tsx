@@ -1,17 +1,14 @@
-import './config'
-import * as fcl from "@onflow/fcl"
+import "./config";
+import * as fcl from "@onflow/fcl";
 
 export function SignInButton() {
   const handleSignIn = () => {
-    fcl.authenticate()
-  }
+    fcl.authenticate();
+  };
 
-  return (
-    <button onClick={handleSignIn}>Sign In</button>
-  )
+  return <button onClick={handleSignIn}>Sign In</button>;
 }
 
 // TODO Sign content
-
 
 // TODO Verify Content
