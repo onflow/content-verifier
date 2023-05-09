@@ -6,11 +6,35 @@ import { useState } from 'react';
 import { SignHash } from './components/SignHash';
 import * as verifier from './fcl-verifier'
 
+import * as fcl from "@onflow/fcl"
+
 export default function Home() {
   const [hash, setHash] = useState<string>("QmQqzMTavQgT4f4T5v6PWBp7XNKtoPmC9jvn12WPT3gkSE");
-  const onLookup = (hash: string) => {
+  const onLookup = async (hash: string) => {
     console.log(hash);
     setHash(hash);
+
+    const hashInfo = await fcl.query({
+      cadence: `
+        import ContentVerifier from 0x9e107eadd013f40e
+
+        pub fun main(hash: String): ContentVerifier.HashInfo? {
+          let contentVerifier = getAccount(0x9e107eadd013f40e)
+        
+          let hashTableCapability = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable)
+          
+          let hashTableRef = hashTableCapability.borrow() 
+              ?? panic("could not borrow reference to HashTable capability")
+        
+          let hashInfo = hashTableRef.getHash(hash: hash)
+
+          return hashInfo
+        }
+      `,
+      args: (arg, t) => [arg(hash, t.String)]
+    })
+    console.log(hashInfo)
+
   }
   const onSign = (signature: string) => {
 

@@ -10,7 +10,7 @@ export const HashInput = ({onLookup}: HashInputProps) => {
 
     return (
         <div className="m-3 w-100">
-            <input className="m-2 w-100" id="hashValue" type="text" name="hash" placeholder="hash value" value={hashValue} onChange={(event) => setHashValue(event.target.value)} />            
+            <input className="m-2 w-100" id="hashValue" type="text" name="hash" placeholder="hash value" value={hashValue} onChange={(event) => setHashValue(event.target.value)} />
             <button className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => onLookup(hashValue)}>Lookup Hash</button>
         </div>
     )
