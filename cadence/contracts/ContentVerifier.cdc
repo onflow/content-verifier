@@ -57,8 +57,8 @@ access(all) contract ContentVerifier {
     init() {
         let hashTable <- create HashTable()
 
-        self.account.save(<-hashTable, to: /storage/hashTable)
-        self.account.link<&HashTable>(/public/hashTable, target: /storage/hashTable)
+        self.account.save(<-hashTable, to: /storage/HashTable)
+        self.account.link<&HashTable>(/public/hashTable, target: /storage/HashTable)
         log("HashTable is created and stored")
     }
 }
