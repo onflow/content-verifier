@@ -1,4 +1,4 @@
-access(all) contract ContentVerifierV2 {
+access(all) contract ContentVerifier {
 
     pub struct HashInfo {
         pub let hash: String
@@ -57,8 +57,8 @@ access(all) contract ContentVerifierV2 {
     init() {
         let hashTable <- create HashTable()
 
-        self.account.save(<-hashTable, to: /storage/HashTable)
-        self.account.link<&HashTable>(/public/hashTable, target: /storage/HashTable)
-        log("HashTable is created and stored")
+        self.account.save(<-hashTable, to: /storage/hashTable)
+        self.account.link<&HashTable>(/public/hashTable, target: /storage/hashTable)
+        log("HashTable is created and stored v2")
     }
 }

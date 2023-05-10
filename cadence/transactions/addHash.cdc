@@ -1,14 +1,14 @@
-import ContentVerifierV2 from 0x9e107eadd013f40e
+import ContentVerifier from 0x2b349007fad7e563
 
 transaction (hash: String, signature: String) {
 
-  let hashTableRef: &ContentVerifierV2.HashTable
+  let hashTableRef: &ContentVerifier.HashTable
   let address: Address
 
   prepare(signer: AuthAccount) {
-    let contentVerifier = getAccount(0x9e107eadd013f40e)
+    let contentVerifier = getAccount(0x2b349007fad7e563)
     self.address = signer.address
-    self.hashTableRef = contentVerifier.getCapability<&ContentVerifierV2.HashTable>(/public/hashTable).borrow() 
+    self.hashTableRef = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable).borrow() 
       ?? panic("could not borrow reference to HashTable")
   }
 
