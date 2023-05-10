@@ -4,11 +4,13 @@ access(all) contract ContentVerifier {
         pub let hash: String
         pub let address: Address
         pub let signature: String
+        pub let keyId: UInt16
 
-        init(hash: String, address: Address, signature: String) {
+        init(hash: String, address: Address, signature: String, keyId: UInt16) {
             self.hash = hash
             self.address = address
             self.signature = signature
+            self.keyId = keyId
         }
     }
 
@@ -35,7 +37,7 @@ access(all) contract ContentVerifier {
             return self.users[address]
         }
 
-        pub fun addHash(hash: String, address: Address, signature: String) {
+        pub fun addHash(hash: String, address: Address, signature: String, keyId: UInt16) {
             if (!self.isValidAddress(address: address)) {
                 panic("invalid account")
             }
@@ -43,7 +45,7 @@ access(all) contract ContentVerifier {
                 panic("hash already exists")
             }
 
-            let info = HashInfo(hash: hash, address: address, signature: signature)
+            let info = HashInfo(hash: hash, address: address, signature: signature, keyId: keyId)
             self.hashTable[hash] = info
 
             if (self.users[address] == nil) {
@@ -59,6 +61,6 @@ access(all) contract ContentVerifier {
 
         self.account.save(<-hashTable, to: /storage/hashTable)
         self.account.link<&HashTable>(/public/hashTable, target: /storage/hashTable)
-        log("HashTable is created and stored v2")
+        log("HashTable is created and stored")
     }
 }
