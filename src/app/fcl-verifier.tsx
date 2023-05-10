@@ -36,7 +36,3 @@ export function SignInButton() {
   )
 }
 
-// TODO Sign content
-
-// TODO Verify Content
- 
