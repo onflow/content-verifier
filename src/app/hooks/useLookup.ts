@@ -14,7 +14,7 @@ export const useLookup = () => {
     setIsVerified(null);
     setOwnerAddress(null);
     setHash(hash);
-    console.log({hash})
+    console.log({ hash });
 
     const hashInfo = await fcl.query({
       cadence: `
@@ -38,6 +38,7 @@ export const useLookup = () => {
     if (!hashInfo) {
       return;
     }
+    console.log("owner address", hashInfo);
     setOwnerAddress(hashInfo.address);
 
     const isVerified = await fcl.AppUtils.verifyUserSignatures(
@@ -56,6 +57,7 @@ export const useLookup = () => {
     setIsVerified(isVerified);
   };
 
+  console.log({ isVerified, hash, ownerAddress });
   return {
     isVerified,
     hash,
