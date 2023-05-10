@@ -5,7 +5,7 @@ import ArrowPath from "./icons/ArrowPath";
 
 //const IPFS_ROOT = "https://ipfs.io/ipfs/";
 const IPFS_ROOT = "https://ipfs.thirdwebcdn.com/ipfs/";
-const FLOWSCAN_ROOT = "https://testnet.flowscan.org/account/0x";
+const FLOWSCAN_ROOT = "https://testnet.flowscan.org/account/";
 
 export const DisplayContent = ({
   hash,
