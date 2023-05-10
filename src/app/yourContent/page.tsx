@@ -1,20 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import { DisplayContent } from "@/app/components/DisplayContent";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
-import * as fcl from "@onflow/fcl";
-import { useUserContect } from "../hooks/useUserContent";
-
+import { useUserContent } from "../hooks/useUserContent";
 
 
 export default function YourContent() {
-  let userContent = [];
+  const { onUserContent } = useUserContent();
+
+  // TODO: query for hashes
+  let account = ""
+  let userHashes: [] = onUserContent(account)
 
   return (
     <ThirdwebProvider>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        {userContent.length == 0
+        {userHashes.length == 0
           ? "Sign content to have it displayed here!"
           : null}
       </main>
