@@ -7,7 +7,6 @@ import { useLookup } from "./hooks/useLookup";
 import { useSign } from "./hooks/useSign";
 
 export default function Home() {
-
   const {hash, onLookup, isVerified, ownerAddress} = useLookup()
 
   const {onSign} = useSign();
@@ -21,7 +20,6 @@ export default function Home() {
       <div className="relative flex flex-col place-items-center">
         <HashInput onLookup={onLookup} />
         {hash && <DisplayContent hash={hash} isVerified={isVerified} ownerAddress={ownerAddress}/>}
-        <SignHash onSign={onSign} hash={hash} />
       </div>
 
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"></div>

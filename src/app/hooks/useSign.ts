@@ -1,16 +1,16 @@
 import * as fcl from "@onflow/fcl";
+import "@/app/config";
 
 export const useSign = () => {
-
   const onSign = async (hash: string | null) => {
     if (!hash) {
-      return
+      return;
     }
     // use fcl to sign hash and return signature
     try {
       const MSG = Buffer.from(hash).toString("hex");
       const sign = await fcl.currentUser.signUserMessage(MSG);
-      const [{ signature }] = sign
+      const signature = sign.signature;
       onSigning(hash, signature);
     } catch (error) {
       console.log(error);
@@ -19,7 +19,7 @@ export const useSign = () => {
 
   const onSigning = async (hash: String, signature: String) => {
     if (!hash) {
-      return
+      return;
     }
     console.log({ hash, signature });
 
@@ -53,5 +53,5 @@ export const useSign = () => {
     fcl.tx(transactionId).subscribe((res: any) => console.log(res.status));
   };
 
-  return {onSign}
-}
+  return { onSign };
+};
