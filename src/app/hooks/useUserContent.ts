@@ -3,7 +3,7 @@ import * as fcl from "@onflow/fcl";
 import {CurrentUser} from "@onflow/typedefs"
 
 export const useUserContent = () => {
-  const [userHashes, setUserHashes] = useState<string[] | null>(null);
+  const [userHashes, setUserHashes] = useState<any[] | null>(null);
 
   const onUserContent = async () => {
     setUserHashes(null)
@@ -13,7 +13,7 @@ export const useUserContent = () => {
       cadence:`
       import ContentVerifier from 0x2b349007fad7e563
       
-      pub fun main(address: Address) {
+      pub fun main(address: Address): [ContentVerifier.HashInfo]? {
         let contentVerifier = getAccount(0x2b349007fad7e563)
       
         let hashTableCapability = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable)
@@ -24,7 +24,7 @@ export const useUserContent = () => {
         return hashTableRef.getHashesForAddress(address: address)
       }
       `,
-      args: (arg: any, t: any) => [arg(user.addr, t.String)],
+      args: (arg: any, t: any) => [arg(user.addr, t.Address)],
     })
 
     setUserHashes(hashes)
