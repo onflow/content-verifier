@@ -4,8 +4,9 @@ import { useState } from "react";
 import { DisplayContent } from "@/app/components/DisplayContent";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import * as fcl from "@onflow/fcl";
+import { useUserContect } from "../hooks/useUserContent";
 
-// TODO: Query user table for hash info on the accounts
+
 
 export default function YourContent() {
   let userContent = [];
