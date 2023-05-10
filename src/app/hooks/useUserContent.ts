@@ -4,23 +4,23 @@ import * as fcl from "@onflow/fcl";
 
 export const useUserContent = () => {
 
-  const onUserContent = async (account: string) =>{
+  const onUserContent = async (address: string) =>{
     const userHashes: [] = await fcl.query({
       cadence:`
-      import ContentVerifier from 0x01
+      import ContentVerifier from 0x9e107eadd013f40e
       
-      pub fun main(account: Account) {
-        let contentVerifier = getAccount(0x01)
+      pub fun main(address: Address) {
+        let contentVerifier = getAccount(0x9e107eadd013f40e)
       
         let hashTableCapability = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable)
         
         let hashTableRef = hashTableCapability.borrow() 
             ?? panic("could not borrow reference to HashTable capability")
       
-        return hashTableRef.getHashesForAddress(address: 0x01)
+        return hashTableRef.getHashesForAddress(address: address)
       }
       `,
-      args: (arg: any, t: any) => [arg(account, t.String)],
+      args: (arg: any, t: any) => [arg(address, t.String)],
     })
   }
 
