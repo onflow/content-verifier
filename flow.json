@@ -19,6 +19,6 @@
     }
   },
   "contracts": {
-    "ContentVerifier": "./cadence/contracts/ContentVerifier.cdc"
+    "ContentVerifierV2": "./cadence/contracts/ContentVerifier.cdc"
   }
 }

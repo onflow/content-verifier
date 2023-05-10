@@ -1,4 +1,4 @@
-access(all) contract ContentVerifier {
+access(all) contract ContentVerifierV2 {
 
     pub struct HashInfo {
         pub let hash: String
