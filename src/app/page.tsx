@@ -1,47 +1,15 @@
 "use client";
 import { HashInput } from "./components/HashInput";
 import { DisplayContent } from "./components/DisplayContent";
-import { useState } from "react";
+import { SignHash } from "./components/SignHash";
 
-import * as fcl from "@onflow/fcl";
+import { useLookup } from "./hooks/useLookup";
+import { useSign } from "./hooks/useSign";
 
 export default function Home() {
-  const [hash, setHash] = useState<string>(
-    "QmQqzMTavQgT4f4T5v6PWBp7XNKtoPmC9jvn12WPT3gkSE"
-  );
-  const [isVerified, setIsVerified] = useState<boolean | null>(false)
-  const onLookup = async (hash: string) => {
-    setIsVerified(null)
-    setHash(hash);
+  const {hash, onLookup, isVerified, ownerAddress} = useLookup()
 
-    const hashInfo = await fcl.query({
-      cadence: `
-        import ContentVerifier from 0x9e107eadd013f40e
-
-        pub fun main(hash: String): ContentVerifier.HashInfo? {
-          let contentVerifier = getAccount(0x9e107eadd013f40e)
-        
-          let hashTableCapability = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable)
-          
-          let hashTableRef = hashTableCapability.borrow() 
-              ?? panic("could not borrow reference to HashTable capability")
-        
-          let hashInfo = hashTableRef.getHash(hash: hash)
-
-          return hashInfo
-        }
-      `,
-      args: (arg: any, t: any) => [arg(hash, t.String)],
-    })
-
-    const isVerified = await fcl.AppUtils.verifyUserSignatures(
-      Buffer.from(hashInfo.hash).toString("hex"),
-      [{f_type: "CompositeSignature", f_vsn: "1.0.0", addr: hashInfo.address, keyId: 1, signature: hashInfo.signature}],
-    )
-
-    setIsVerified(isVerified)
-
-  }
+  const {onSign} = useSign();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -51,7 +19,7 @@ export default function Home() {
 
       <div className="relative flex flex-col place-items-center">
         <HashInput onLookup={onLookup} />
-        {hash && <DisplayContent hash={hash} isVerified={isVerified} />}
+        {hash && <DisplayContent hash={hash} isVerified={isVerified} ownerAddress={ownerAddress}/>}
       </div>
 
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"></div>

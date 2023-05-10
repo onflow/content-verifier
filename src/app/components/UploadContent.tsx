@@ -3,7 +3,7 @@ import { useStorageUpload } from "@thirdweb-dev/react";
 import React, { useState } from "react";
 
 export type UploadContentProps = {
-  onUpload: (hash: string | undefined) => void;
+  onUpload: (hash: string) => Promise<void>;
 };
 
 const hashFromUrl = (url: string) => {
@@ -29,7 +29,9 @@ export const UploadContent = ({ onUpload }: UploadContentProps) => {
     });
     console.log("uploadUrl", uploadUrl);
     const hash = hashFromUrl(uploadUrl[0]);
-    onUpload(hash);
+    if (hash) {
+      onUpload(hash);
+    }
   };
 
   return (
