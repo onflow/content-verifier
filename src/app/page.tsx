@@ -1,91 +1,16 @@
 "use client";
 import { HashInput } from "./components/HashInput";
 import { DisplayContent } from "./components/DisplayContent";
-import { useState } from "react";
 import { SignHash } from "./components/SignHash";
 
-import * as fcl from "@onflow/fcl";
+import { useLookup } from "./hooks/useLookup";
+import { useSign } from "./hooks/useSign";
 
 export default function Home() {
-  const [hash, setHash] = useState<string>(
-    "QmQqzMTavQgT4f4T5v6PWBp7XNKtoPmC9jvn12WPT3gkSE"
-  );
-  const [isVerified, setIsVerified] = useState<boolean | null>(false)
-  const onLookup = async (hash: string) => {
-    setIsVerified(null)
-    setHash(hash);
 
-    const hashInfo = await fcl.query({
-      cadence: `
-        import ContentVerifier from 0x9e107eadd013f40e
+  const {hash, onLookup, isVerified, ownerAddress} = useLookup()
 
-        pub fun main(hash: String): ContentVerifier.HashInfo? {
-          let contentVerifier = getAccount(0x9e107eadd013f40e)
-        
-          let hashTableCapability = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable)
-          
-          let hashTableRef = hashTableCapability.borrow() 
-              ?? panic("could not borrow reference to HashTable capability")
-        
-          let hashInfo = hashTableRef.getHash(hash: hash)
-
-          return hashInfo
-        }
-      `,
-      args: (arg: any, t: any) => [arg(hash, t.String)],
-    })
-    const isVerified = await fcl.AppUtils.verifyUserSignatures(
-      Buffer.from(hashInfo.hash).toString("hex"),
-      [{f_type: "CompositeSignature", f_vsn: "1.0.0", addr: hashInfo.address, keyId: 1, signature: hashInfo.signature}],
-    )
-
-    setIsVerified(isVerified)
-
-  }
-  const onSign = async () => {
-    // use fcl to sign hash and return signature
-    try {
-      const MSG = Buffer.from(hash).toString("hex");
-      const sign = await fcl.currentUser.signUserMessage(MSG);
-      const [{ signature }] = sign
-      onSigning(hash, signature);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const onSigning = async (hash: String, signature: String) => {
-    console.log({ hash, signature });
-
-    const transactionId = await fcl.mutate({
-      cadence: `
-        import ContentVerifier from 0x9e107eadd013f40e
-
-        transaction (hash: String, signature: String) {
-        
-          let hashTableRef: &ContentVerifier.HashTable
-          let address: Address
-        
-          prepare(signer: AuthAccount) {
-            let contentVerifier = getAccount(0x9e107eadd013f40e)
-            self.address = signer.address
-            self.hashTableRef = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable).borrow() 
-              ?? panic("could not borrow reference to HashTable")
-          }
-        
-          execute {
-            self.hashTableRef.addHash(hash: hash, address: self.address, signature: signature);
-          }
-        }
-      `,
-      args: (arg: any, t: any) => [
-        arg(hash, t.String),
-        arg(signature, t.String),
-      ],
-    });
-
-    fcl.tx(transactionId).subscribe((res: any) => console.log(res.status));
-  };
+  const {onSign} = useSign();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -95,8 +20,8 @@ export default function Home() {
 
       <div className="relative flex flex-col place-items-center">
         <HashInput onLookup={onLookup} />
-        {hash && <DisplayContent hash={hash} isVerified={isVerified} />}
-        <SignHash onSign={onSign} />
+        {hash && <DisplayContent hash={hash} isVerified={isVerified} ownerAddress={ownerAddress}/>}
+        <SignHash onSign={onSign} hash={hash} />
       </div>
 
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left"></div>

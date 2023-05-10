@@ -1,13 +1,14 @@
 export type SignHashProps = {
-  onSign: () => void;
+  onSign: (hash: string | null) => void;
+  hash: string | null;
 };
 
-export const SignHash = ({ onSign }: SignHashProps) => {
+export const SignHash = ({ onSign, hash }: SignHashProps) => {
   return (
     <div>
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={() => onSign()}
+        onClick={() => onSign(hash)}
       >
         Sign Hash
       </button>
