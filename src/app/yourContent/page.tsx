@@ -9,8 +9,9 @@ export default function YourContent() {
   const { onUserContent } = useUserContent();
 
   // TODO: query for hashes
-  let account = ""
-  let userHashes: [] = onUserContent(account)
+  //let account = ""
+  //let userHashes: [] = onUserContent(account)
+  let userHashes = []
 
   return (
     <ThirdwebProvider>
