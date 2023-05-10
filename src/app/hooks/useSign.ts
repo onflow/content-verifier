@@ -11,6 +11,7 @@ export const useSign = () => {
       const MSG = Buffer.from(hash).toString("hex");
       console.log(MSG);
       const sign = await fcl.currentUser.signUserMessage(MSG);
+      // @ts-ignore
       const [{ signature, keyId }] = sign;
       onSigning(hash, signature, keyId);
     } catch (error) {
