@@ -1,11 +1,13 @@
 import { useState } from "react";
 import * as fcl from "@onflow/fcl";
-
+import {CurrentUser} from "@onflow/typedefs"
 
 export const useUserContent = () => {
+  const [userHashes, setUserHashes] = useState<string[] | null>(null);
 
-  const onUserContent = async (address: string) =>{
-    const userHashes: [] = await fcl.query({
+  const onUserContent = async (address: string) => {
+    const user: CurrentUser = await fcl.currentUser.snapshot()
+    const hashes = await fcl.query({
       cadence:`
       import ContentVerifier from 0x2b349007fad7e563
       
@@ -20,11 +22,14 @@ export const useUserContent = () => {
         return hashTableRef.getHashesForAddress(address: address)
       }
       `,
-      args: (arg: any, t: any) => [arg(address, t.String)],
+      args: (arg: any, t: any) => [arg(user.addr, t.String)],
     })
+
+    setUserHashes(hashes)
   }
 
   return {
+    userHashes,
     onUserContent
   }
 
