@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react'
-import './config'
-import * as fcl from "@onflow/fcl"
+import { useEffect, useState } from "react";
+import "./config";
+import * as fcl from "@onflow/fcl";
 
 export function SignInButton() {
+  const [user, setUser] = useState({ loggedIn: null, addr: null });
 
-  const [user, setUser] = useState({loggedIn: null, addr: null})
-
-  useEffect(() => {fcl.currentUser.subscribe(setUser)}, [])
+  useEffect(() => {
+    fcl.currentUser.subscribe(setUser);
+  }, []);
 
   const AuthedState = () => {
     return (
@@ -14,8 +15,8 @@ export function SignInButton() {
         <div>Address: {user?.addr ?? "No Address"}</div>
         <button onClick={fcl.unauthenticate}>Log Out</button>
       </div>
-    )
-  }
+    );
+  };
 
   const UnauthenticatedState = () => {
     return (
@@ -23,16 +24,10 @@ export function SignInButton() {
         <button onClick={fcl.authenticate}>Log In</button>
         <button onClick={fcl.signUp}>Sign Up</button>
       </div>
-    )
-  }
+    );
+  };
 
   return (
-    <div>
-      {user.loggedIn
-        ? <AuthedState />
-        : <UnauthenticatedState />
-      }
-    </div>
-  )
+    <div>{user.loggedIn ? <AuthedState /> : <UnauthenticatedState />}</div>
+  );
 }
-

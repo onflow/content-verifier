@@ -48,3 +48,4 @@ access(all) contract ContentVerifier {
         log("HashTable is created and stored")
     }
 }
+ 
