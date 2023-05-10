@@ -14,6 +14,7 @@ access(all) contract ContentVerifier {
 
     pub resource HashTable {
         access(self) let hashTable: {String: HashInfo}
+        access(self) let users: {Address: [HashInfo]}
 
         access(self) fun isValidAddress (address: Address): Bool {
             let account = getAccount(address)
@@ -23,10 +24,15 @@ access(all) contract ContentVerifier {
 
         init() {
             self.hashTable = {}
+            self.users = {}
         }
 
         pub fun getHash(hash: String): HashInfo? {
             return self.hashTable[hash]
+        }
+
+        pub fun getHashesForAddress(address: Address): [HashInfo]? {
+            return self.users[address]
         }
 
         pub fun addHash(hash: String, address: Address, signature: String) {
@@ -36,16 +42,23 @@ access(all) contract ContentVerifier {
             if (self.getHash(hash: hash) != nil){
                 panic("hash already exists")
             }
-            self.hashTable[hash] = HashInfo(hash: hash, address: address, signature: signature)
+
+            let info = HashInfo(hash: hash, address: address, signature: signature)
+            self.hashTable[hash] = info
+
+            if (self.users[address] == nil) {
+                self.users[address] = [info]
+            } else {
+                self.users[address]!.append(info)
+            }
         }
     }
 
     init() {
         let hashTable <- create HashTable()
 
-        self.account.save(<-hashTable, to: /storage/HashTable)
-        self.account.link<&HashTable>(/public/hashTable, target: /storage/HashTable)
-        log("HashTable is created and stored")
+        self.account.save(<-hashTable, to: /storage/hashTable)
+        self.account.link<&HashTable>(/public/hashTable, target: /storage/hashTable)
+        log("HashTable is created and stored v2")
     }
 }
- 

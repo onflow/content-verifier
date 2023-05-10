@@ -27,7 +27,7 @@ export const useSign = () => {
 
     const transactionId = await fcl.mutate({
       cadence: `
-        import ContentVerifier from 0x9e107eadd013f40e
+        import ContentVerifier from 0x2b349007fad7e563
 
         transaction (hash: String, signature: String) {
         
@@ -35,7 +35,7 @@ export const useSign = () => {
           let address: Address
         
           prepare(signer: AuthAccount) {
-            let contentVerifier = getAccount(0x9e107eadd013f40e)
+            let contentVerifier = getAccount(0x2b349007fad7e563)
             self.address = signer.address
             self.hashTableRef = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable).borrow() 
               ?? panic("could not borrow reference to HashTable")

@@ -14,18 +14,19 @@ export const useLookup = () => {
     setIsVerified(null);
     setOwnerAddress(null);
     setHash(hash);
+    console.log({hash})
 
     const hashInfo = await fcl.query({
       cadence: `
-        import ContentVerifier from 0x9e107eadd013f40e
+        import ContentVerifier from 0x2b349007fad7e563
 
         pub fun main(hash: String): ContentVerifier.HashInfo? {
-          let contentVerifier = getAccount(0x9e107eadd013f40e)
+          let contentVerifier = getAccount(0x2b349007fad7e563)
         
           let hashTableCapability = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable)
           
           let hashTableRef = hashTableCapability.borrow() 
-              ?? panic("could not borrow reference to HashTable capability")
+              ?? panic("could not borrow reference to HashTable capability from lookup")
         
           let hashInfo = hashTableRef.getHash(hash: hash)
 

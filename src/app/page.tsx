@@ -2,7 +2,6 @@
 import { HashInput } from "./components/HashInput";
 import { DisplayContent } from "./components/DisplayContent";
 import { SignHash } from "./components/SignHash";
-
 import { useLookup } from "./hooks/useLookup";
 import { useSign } from "./hooks/useSign";
 
