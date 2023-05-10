@@ -9,8 +9,10 @@ export const useSign = () => {
     // use fcl to sign hash and return signature
     try {
       const MSG = Buffer.from(hash).toString("hex");
+      console.log(MSG);
       const sign = await fcl.currentUser.signUserMessage(MSG);
-      const signature = sign.signature;
+      // @ts-ignore
+      const [{ signature }] = sign;
       onSigning(hash, signature);
     } catch (error) {
       console.log(error);
