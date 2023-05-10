@@ -5,7 +5,9 @@ import {CurrentUser} from "@onflow/typedefs"
 export const useUserContent = () => {
   const [userHashes, setUserHashes] = useState<string[] | null>(null);
 
-  const onUserContent = async (address: string) => {
+  const onUserContent = async () => {
+    setUserHashes(null)
+
     const user: CurrentUser = await fcl.currentUser.snapshot()
     const hashes = await fcl.query({
       cadence:`
