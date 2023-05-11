@@ -22,23 +22,27 @@ export default function Home() {
             the IPFS hash
           </div>
           <div className="text-md text-gray-900 dark:text-white">
-            <span className="font-bold">Step two:</span> Display content with
-            source verification
+            <span className="font-bold">Step two:</span> Look up IPFS hash to
+            verify source account
           </div>
         </div>
 
         <div className="mt-10 place-items-start text-left w-1/2">
-          <h4 className="text-xl text-gray-900 dark:text-white text-left">
+          <span className="text-xl text-gray-900 dark:text-white text-left">
             Look up IFPS hash to verify content ownership:
-          </h4>
-          <span className="text-sm font-bold">Unverified: </span>
-          <h3 className="text-sm text-gray-900 dark:text-white text-left">
-            QmQqzMTavQgT4f4T5v6PWBp7XNKtoPmC9jvn12WPT3gkSE
-          </h3>
-          <span className="text-sm font-bold">Verified: </span>
-          <h3 className="text-sm text-gray-900 dark:text-white text-left">
-            QmUiAxDHZMJSVM7umzAZ1ojJjZmxWGWUffyiG1v8TC7mob
-          </h3>
+          </span>
+          <div>
+            <span className="text-sm font-bold">Unverified: </span>
+            <span className="text-xs text-gray-900 dark:text-white text-left">
+              QmQqzMTavQgT4f4T5v6PWBp7XNKtoPmC9jvn12WPT3gkSE
+            </span>
+          </div>
+          <div>
+            <span className="text-sm font-bold">Verified: </span>
+            <span className="text-xs text-gray-900 dark:text-white text-left">
+              QmUiAxDHZMJSVM7umzAZ1ojJjZmxWGWUffyiG1v8TC7mob
+            </span>
+          </div>
           <HashInput onLookup={onLookup} />
           {hash && (
             <DisplayContent

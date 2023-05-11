@@ -1,7 +1,9 @@
 import * as fcl from "@onflow/fcl";
 import "@/app/config";
+import { useState } from "react";
 
 export const useSign = () => {
+  const [txStatus, setTxStatus] = useState<number | null>(null);
   const onSign = async (hash: string | null) => {
     if (!hash) {
       return;
@@ -53,8 +55,8 @@ export const useSign = () => {
       ],
     });
 
-    fcl.tx(transactionId).subscribe((res: any) => console.log(res.status));
+    fcl.tx(transactionId).subscribe((res: any) => setTxStatus(res.status));
   };
 
-  return { onSign };
+  return { txStatus, onSign };
 };

@@ -12,6 +12,7 @@ const hashFromUrl = (url: string) => {
 };
 
 export const UploadContent = ({ onUpload }: UploadContentProps) => {
+  const [buttonText, setButtonText] = useState<string>("First, Choose File");
   const [file, setFile] = useState<File | null>(null);
   const [image, setImage] = useState<string | null>(null);
   const { mutateAsync: upload } = useStorageUpload();
@@ -19,8 +20,6 @@ export const UploadContent = ({ onUpload }: UploadContentProps) => {
   const selectFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     const selectedFiles = files as FileList;
-    console.log("selectedFiles", selectedFiles);
-
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -28,22 +27,23 @@ export const UploadContent = ({ onUpload }: UploadContentProps) => {
     };
     const file = selectedFiles?.[0];
     if (file) {
-      console.log("read file");
       reader.readAsDataURL(file);
     }
     setFile(selectedFiles?.[0]);
+    setButtonText("Save to IPFS");
   };
 
   const uploadToIpfs = async () => {
+    setButtonText("Uploading...");
     const uploadUrl = await upload({
       data: [file],
       options: { uploadWithGatewayUrl: true, uploadWithoutDirectory: true },
     });
-    console.log("uploadUrl", uploadUrl);
     const hash = hashFromUrl(uploadUrl[0]);
     if (hash) {
       onUpload(hash);
     }
+    setButtonText("Uploaded");
   };
 
   return (
@@ -54,14 +54,14 @@ export const UploadContent = ({ onUpload }: UploadContentProps) => {
         disabled={!file}
         onClick={uploadToIpfs}
       >
-        Save to IPFS
+        {buttonText}
       </button>
       {image && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={image}
           alt="Selected"
-          style={{ height: "100px", width: "100px" }}
+          style={{ height: "25%", width: "25%" }}
         />
       )}
     </div>

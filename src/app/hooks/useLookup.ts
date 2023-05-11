@@ -35,11 +35,9 @@ export const useLookup = () => {
       `,
       args: (arg: any, t: any) => [arg(hash, t.String)],
     });
-    console.log(hashInfo);
     if (!hashInfo) {
       return;
     }
-    console.log("owner address", hashInfo);
     setOwnerAddress(hashInfo.address);
     console.log({ hashInfo });
 
