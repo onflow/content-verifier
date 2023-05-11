@@ -11,7 +11,7 @@ export const HashInput = ({ onLookup }: HashInputProps) => {
   );
 
   return (
-    <div className="m-3 w-full">
+    <div className="m-3 w-1/2">
       <input
         className="m-2 w-full text-black"
         id="hashValue"

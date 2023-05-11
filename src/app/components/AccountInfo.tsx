@@ -19,11 +19,10 @@ export const AccountInfo = ({ account }: FindResolverProps) => {
   const { onDotFind } = useDotFind();
 
   useMemo(() => {
-    setLoading(true);
     if (account) {
+      setLoading(true);
       onDotFind(account)
         .then((findName) => {
-          console.log("find", findName);
           setFindName(findName);
         })
         .finally(() => {
@@ -34,28 +33,31 @@ export const AccountInfo = ({ account }: FindResolverProps) => {
 
   return (
     <>
-      {loading && <div>Loading ...</div>}
-      <div className="mr-3 w-100">
-        Source Account:{" "}
-        {!findName && (
-          <a
-            className="text-blue-500 hover:text-blue-700"
-            href={`${FLOWSCAN_ROOT}${account}`}
-          >
-            {account}
-          </a>
-        )}
-        {findName && (
-          <a
-            className="text-blue-500 hover:text-blue-700"
-            href={`${FIND_PROFILE}${account}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {findName}.find
-          </a>
-        )}
-      </div>
+      {loading && <div>Loading...</div>}
+      {!loading && (
+        <div className="mr-3 w-100">
+          Source Account:{" "}
+          {!account && <span className="text-gray-500">Unknown</span>}
+          {!findName && (
+            <a
+              className="text-blue-500 hover:text-blue-700"
+              href={`${FLOWSCAN_ROOT}${account}`}
+            >
+              {account}
+            </a>
+          )}
+          {findName && (
+            <a
+              className="text-blue-500 hover:text-blue-700"
+              href={`${FIND_PROFILE}${account}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {findName}.find
+            </a>
+          )}
+        </div>
+      )}
     </>
   );
 };

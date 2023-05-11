@@ -22,12 +22,14 @@ export const DisplayContent = ({
       {hash && (
         <>
           <Image src={fullLink} width="500" height="500" alt="IPFS Image" />
-          <div className="w-48">
-            <a href={fullLink} target="_blank" rel="noreferrer">
-              IPFS Link:{" "}
-              <span className="inline-block w-full truncate">{fullLink}</span>
-            </a>
-          </div>
+          <a
+            className="text-blue-500"
+            href={fullLink}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div>IPFS Link: {fullLink.slice(46)}...</div>
+          </a>
           <div className="flex flex-row">
             {isVerified ? <GreenCheckmark /> : <ExclamationCircle />}
             <AccountInfo account={ownerAddress} />

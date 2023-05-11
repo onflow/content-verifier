@@ -47,13 +47,17 @@ export default function YourContent() {
     }
   }, [userHashes.length, imageIndex]);
 
-  function previousImage() {
-    setImageIndex((imageIndex - 1) % userHashes.length);
-  }
+  const nextImage = () => {
+    if (imageIndex < userHashes.length - 1) {
+      setImageIndex(imageIndex + 1);
+    }
+  };
 
-  function nextImage() {
-    setImageIndex((imageIndex + 1) % userHashes.length);
-  }
+  const previousImage = () => {
+    if (imageIndex > 0) {
+      setImageIndex(imageIndex - 1);
+    }
+  };
 
   return (
     <ThirdwebProvider>
@@ -61,26 +65,31 @@ export default function YourContent() {
         {loaded && <div>Loading...</div>}
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={nextImage}
+          onClick={previousImage}
         >
-          Next
+          Previous
         </button>
         <div>
           {userHashes == null || userHashes.length == 0 ? (
             "Sign content to have it displayed here!"
           ) : (
-            <DisplayContent
-              hash={hash ? hash : ""}
-              isVerified={isVerified}
-              ownerAddress={ownerAddress}
-            />
+            <div>
+              <div>
+                {imageIndex + 1} of {userHashes.length}
+              </div>
+              <DisplayContent
+                hash={hash ? hash : ""}
+                isVerified={isVerified}
+                ownerAddress={ownerAddress}
+              />
+            </div>
           )}
         </div>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={previousImage}
+          onClick={nextImage}
         >
-          Prevous
+          Next
         </button>
       </main>
     </ThirdwebProvider>

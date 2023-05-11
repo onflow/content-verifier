@@ -11,9 +11,14 @@ export function SignInButton() {
 
   const AuthedState = () => {
     return (
-      <div>
+      <div className="flex flex-row justify-center items-center">
         <div>Address: {user?.addr ?? "No Address"}</div>
-        <button onClick={fcl.unauthenticate}>Log Out</button>
+        <button
+          className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={fcl.unauthenticate}
+        >
+          Log Out
+        </button>
       </div>
     );
   };
@@ -21,13 +26,25 @@ export function SignInButton() {
   const UnauthenticatedState = () => {
     return (
       <div>
-        <button onClick={fcl.authenticate}>Log In</button>
-        <button onClick={fcl.signUp}>Sign Up</button>
+        <button
+          className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={fcl.authenticate}
+        >
+          Log In
+        </button>
+        <button
+          className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={fcl.signUp}
+        >
+          Sign Up
+        </button>
       </div>
     );
   };
 
   return (
-    <div>{user.loggedIn ? <AuthedState /> : <UnauthenticatedState />}</div>
+    <div className="no-wrap">
+      {user.loggedIn ? <AuthedState /> : <UnauthenticatedState />}
+    </div>
   );
 }
