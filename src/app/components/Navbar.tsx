@@ -14,7 +14,8 @@ export const Navbar = () => {
             alt="Flowbite Logo"
             width={40}
             height={40}
-          />
+          />{" "}
+          Content Verifier
         </a>
         <verifier.SignInButton />
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
