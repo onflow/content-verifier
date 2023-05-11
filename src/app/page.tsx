@@ -1,14 +1,10 @@
 "use client";
 import { HashInput } from "./components/HashInput";
 import { DisplayContent } from "./components/DisplayContent";
-import { SignHash } from "./components/SignHash";
 import { useLookup } from "./hooks/useLookup";
-import { useSign } from "./hooks/useSign";
 
 export default function Home() {
   const { hash, onLookup, isVerified, ownerAddress } = useLookup();
-
-  const { onSign } = useSign();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
