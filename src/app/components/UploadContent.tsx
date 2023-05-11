@@ -51,13 +51,14 @@ export const UploadContent = ({ onUpload }: UploadContentProps) => {
     <div>
       <input type="file" onChange={selectFile} />
       <button
-        className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
         disabled={!file}
         onClick={uploadToIpfs}
       >
         Save to IPFS
       </button>
       {image && (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={image}
           alt="Selected"
