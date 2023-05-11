@@ -55,11 +55,12 @@ export default function Home() {
       </div>
 
       <div className="flex w-full mb-32 text-center lg:mb-0">
-        This application is built on the Flow blockchain using fcl-js. It is a
-        fully frontend application. It allows users to prove proof of ownership
-        of their assert on IPFS (InterPlanetary File System). Ownership can be
-        publicly verified by comparing the signature retrieved from the
-        blockchain to the accompanying account address.
+        This application is built on the Flow blockchain using fcl-js to
+        interact with the blockchain. It is a fully frontend application. It
+        allows users to prove proof of ownership of their assert on IPFS
+        (InterPlanetary File System). Ownership can be publicly verified by
+        comparing the signature retrieved from the blockchain to the
+        accompanying account address.
       </div>
     </main>
   );
