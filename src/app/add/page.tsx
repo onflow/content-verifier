@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { DisplayContent } from "@/app/components/DisplayContent";
 import { UploadContent } from "../components/UploadContent";
 import { ThirdwebProvider } from "@thirdweb-dev/react";

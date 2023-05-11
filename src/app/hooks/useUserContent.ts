@@ -11,10 +11,10 @@ export const useUserContent = () => {
     const user: CurrentUser = await fcl.currentUser.snapshot()
     const hashes = await fcl.query({
       cadence:`
-      import ContentVerifier from 0x2b349007fad7e563
+      import ContentVerifier from 0x93585dc5825311aa
       
       pub fun main(address: Address): [ContentVerifier.HashInfo]? {
-        let contentVerifier = getAccount(0x2b349007fad7e563)
+        let contentVerifier = getAccount(0x93585dc5825311aa)
       
         let hashTableCapability = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable)
         
