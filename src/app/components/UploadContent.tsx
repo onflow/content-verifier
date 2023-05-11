@@ -1,6 +1,7 @@
 "use client";
 import { useStorageUpload } from "@thirdweb-dev/react";
 import React, { useState } from "react";
+import Image from "next/image";
 
 export type UploadContentProps = {
   onUpload: (hash: string) => Promise<void>;
@@ -13,12 +14,24 @@ const hashFromUrl = (url: string) => {
 
 export const UploadContent = ({ onUpload }: UploadContentProps) => {
   const [file, setFile] = useState<File | null>(null);
+  const [image, setImage] = useState<string | null>(null);
   const { mutateAsync: upload } = useStorageUpload();
 
   const selectFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     const selectedFiles = files as FileList;
     console.log("selectedFiles", selectedFiles);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImage(reader.result as string);
+    };
+    const file = selectedFiles?.[0];
+    if (file) {
+      console.log("read file");
+      reader.readAsDataURL(file);
+    }
     setFile(selectedFiles?.[0]);
   };
 
@@ -42,8 +55,15 @@ export const UploadContent = ({ onUpload }: UploadContentProps) => {
         disabled={!file}
         onClick={uploadToIpfs}
       >
-        Upload
+        Save to IPFS
       </button>
+      {image && (
+        <img
+          src={image}
+          alt="Selected"
+          style={{ height: "100px", width: "100px" }}
+        />
+      )}
     </div>
   );
 };
