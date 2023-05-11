@@ -24,21 +24,23 @@ export default function Add() {
 
   return (
     <ThirdwebProvider>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <main className="flex min-h-screen flex-col items-center p-24">
+        {!hash && (
+          <a className="text-xl block m-2 py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+            Upload Image, Save to IPFS, and Sign
+          </a>
+        )}
+
         <UploadContent onUpload={onLookup} />
         {hash && (
-          <DisplayContent
-            hash={hash}
-            isVerified={isVerified}
-            ownerAddress={address}
-          />
-        )}
-        {hash != undefined ? (
-          <SignHash onSign={onSign} hash={hash} />
-        ) : (
-          <a className="block m-2 py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-            Add content to sign
-          </a>
+          <>
+            <DisplayContent
+              hash={hash}
+              isVerified={isVerified}
+              ownerAddress={address}
+            />
+            <SignHash onSign={onSign} hash={hash} />
+          </>
         )}
       </main>
     </ThirdwebProvider>
