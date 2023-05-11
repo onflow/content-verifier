@@ -1,16 +1,26 @@
 "use client";
-
+import { useState } from "react";
 import { DisplayContent } from "@/app/components/DisplayContent";
 import { UploadContent } from "../components/UploadContent";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import { SignHash } from "../components/SignHash";
-
 import { useLookup } from "../hooks/useLookup";
 import { useSign } from "../hooks/useSign";
+import * as fcl from "@onflow/fcl";
+import { useMemo } from "react";
 
 export default function Add() {
   const { hash, onLookup, isVerified, ownerAddress } = useLookup();
+  const [address, setAddress] = useState<string | null>(ownerAddress);
   const { onSign } = useSign();
+
+  useMemo(async () => {
+    // use logged in user as default owner
+    if (!ownerAddress) {
+      const currentUser = await fcl.currentUser.snapshot();
+      if (currentUser?.addr) setAddress(currentUser?.addr);
+    }
+  }, [ownerAddress]);
 
   return (
     <ThirdwebProvider>
@@ -20,7 +30,7 @@ export default function Add() {
           <DisplayContent
             hash={hash}
             isVerified={isVerified}
-            ownerAddress={ownerAddress}
+            ownerAddress={address}
           />
         )}
         {hash != undefined ? (

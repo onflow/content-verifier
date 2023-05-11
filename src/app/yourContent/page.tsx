@@ -5,7 +5,6 @@ import { useUserContent } from "../hooks/useUserContent";
 import { useLookup } from "../hooks/useLookup";
 import { useState } from "react";
 
-
 export default function YourContent() {
   const { userHashes, onUserContent } = useUserContent();
   const { hash, onLookup, isVerified, ownerAddress } = useLookup();

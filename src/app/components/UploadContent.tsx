@@ -13,12 +13,24 @@ const hashFromUrl = (url: string) => {
 
 export const UploadContent = ({ onUpload }: UploadContentProps) => {
   const [file, setFile] = useState<File | null>(null);
+  const [image, setImage] = useState<string | null>(null);
   const { mutateAsync: upload } = useStorageUpload();
 
   const selectFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     const selectedFiles = files as FileList;
     console.log("selectedFiles", selectedFiles);
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImage(reader.result as string);
+    };
+    const file = selectedFiles?.[0];
+    if (file) {
+      console.log("read file");
+      reader.readAsDataURL(file);
+    }
     setFile(selectedFiles?.[0]);
   };
 
@@ -38,12 +50,20 @@ export const UploadContent = ({ onUpload }: UploadContentProps) => {
     <div>
       <input type="file" onChange={selectFile} />
       <button
-        className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
         disabled={!file}
         onClick={uploadToIpfs}
       >
-        Upload
+        Save to IPFS
       </button>
+      {image && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={image}
+          alt="Selected"
+          style={{ height: "100px", width: "100px" }}
+        />
+      )}
     </div>
   );
 };

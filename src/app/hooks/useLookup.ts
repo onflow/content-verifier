@@ -35,13 +35,13 @@ export const useLookup = () => {
       `,
       args: (arg: any, t: any) => [arg(hash, t.String)],
     });
-    console.log(hashInfo)
+    console.log(hashInfo);
     if (!hashInfo) {
       return;
     }
     console.log("owner address", hashInfo);
     setOwnerAddress(hashInfo.address);
-    console.log({hashInfo})
+    console.log({ hashInfo });
 
     const isVerified = await fcl.AppUtils.verifyUserSignatures(
       Buffer.from(hashInfo.hash).toString("hex"),
