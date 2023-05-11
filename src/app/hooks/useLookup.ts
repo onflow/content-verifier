@@ -18,10 +18,10 @@ export const useLookup = () => {
 
     const hashInfo = await fcl.query({
       cadence: `
-        import ContentVerifier from 0x2b349007fad7e563
+        import ContentVerifier from 0x93585dc5825311aa
 
         pub fun main(hash: String): ContentVerifier.HashInfo? {
-          let contentVerifier = getAccount(0x2b349007fad7e563)
+          let contentVerifier = getAccount(0x93585dc5825311aa)
         
           let hashTableCapability = contentVerifier.getCapability<&ContentVerifier.HashTable>(/public/hashTable)
           
@@ -35,11 +35,13 @@ export const useLookup = () => {
       `,
       args: (arg: any, t: any) => [arg(hash, t.String)],
     });
+    console.log(hashInfo)
     if (!hashInfo) {
       return;
     }
     console.log("owner address", hashInfo);
     setOwnerAddress(hashInfo.address);
+    console.log({hashInfo})
 
     const isVerified = await fcl.AppUtils.verifyUserSignatures(
       Buffer.from(hashInfo.hash).toString("hex"),
@@ -48,7 +50,7 @@ export const useLookup = () => {
           f_type: "CompositeSignature",
           f_vsn: "1.0.0",
           addr: hashInfo.address,
-          keyId: 1,
+          keyId: hashInfo.keyId,
           signature: hashInfo.signature,
         },
       ]

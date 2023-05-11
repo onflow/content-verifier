@@ -10,7 +10,7 @@
 	},
 	"accounts": {
 		"content-verifier": {
-			"address": "2b349007fad7e563",
+			"address": "93585dc5825311aa",
 			"key": {
 				"type": "file",
 				"location": "content-verifier.pkey"
