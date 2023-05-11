@@ -1,7 +1,6 @@
 "use client";
 import { useStorageUpload } from "@thirdweb-dev/react";
 import React, { useState } from "react";
-import Image from "next/image";
 
 export type UploadContentProps = {
   onUpload: (hash: string) => Promise<void>;

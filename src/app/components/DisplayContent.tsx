@@ -1,7 +1,5 @@
 import Image from "next/image";
-import CheckBadge from "./icons/CheckBadge";
 import ExclamationCircle from "./icons/ExclamationCircle";
-import ArrowPath from "./icons/ArrowPath";
 import { AccountInfo } from "@/app/components/AccountInfo";
 import GreenCheckmark from "@/app/components/icons/GreenCheckmark";
 

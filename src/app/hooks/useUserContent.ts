@@ -1,12 +1,10 @@
 import { useState } from "react";
 import * as fcl from "@onflow/fcl";
 
-
 export const useUserContent = () => {
-
-  const onUserContent = async (address: string) =>{
+  const onUserContent = async (address: string) => {
     const userHashes: [] = await fcl.query({
-      cadence:`
+      cadence: `
       import ContentVerifier from 0x93585dc5825311aa
       
       pub fun main(address: Address) {
@@ -21,12 +19,10 @@ export const useUserContent = () => {
       }
       `,
       args: (arg: any, t: any) => [arg(address, t.String)],
-    })
-  }
+    });
+  };
 
   return {
-    onUserContent
-  }
-
-}
-
+    onUserContent,
+  };
+};

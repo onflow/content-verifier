@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useDotFind } from "@/app/hooks/useDotFind";
 
 type FindResolverProps = {
@@ -18,17 +18,19 @@ export const AccountInfo = ({ account }: FindResolverProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { onDotFind } = useDotFind();
 
-  console.log("account", account);
-  if (account) {
-    onDotFind(account)
-      .then((findName) => {
-        console.log("find", findName);
-        setFindName(findName);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
+  useMemo(() => {
+    setLoading(true);
+    if (account) {
+      onDotFind(account)
+        .then((findName) => {
+          console.log("find", findName);
+          setFindName(findName);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [account]);
 
   return (
     <>

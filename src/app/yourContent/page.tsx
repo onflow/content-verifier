@@ -4,14 +4,13 @@ import { DisplayContent } from "@/app/components/DisplayContent";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import { useUserContent } from "../hooks/useUserContent";
 
-
 export default function YourContent() {
   const { onUserContent } = useUserContent();
 
   // TODO: query for hashes
   //let account = ""
   //let userHashes: [] = onUserContent(account)
-  let userHashes = []
+  let userHashes = [];
 
   return (
     <ThirdwebProvider>
