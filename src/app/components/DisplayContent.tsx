@@ -2,7 +2,8 @@ import Image from "next/image";
 import CheckBadge from "./icons/CheckBadge";
 import ExclamationCircle from "./icons/ExclamationCircle";
 import ArrowPath from "./icons/ArrowPath";
-import { AccountInfo } from "./AccountInfo";
+import { AccountInfo } from "@/app/components/AccountInfo";
+import GreenCheckmark from "@/app/components/icons/GreenCheckmark";
 
 //const IPFS_ROOT = "https://ipfs.io/ipfs/";
 const IPFS_ROOT = "https://ipfs.thirdwebcdn.com/ipfs/";
@@ -23,17 +24,11 @@ export const DisplayContent = ({
         <>
           <Image src={fullLink} width="500" height="500" alt="IPFS Image" />
           <p>{fullLink}</p>
-          <p>
+          <div className="flex flex-row">
+            {isVerified ? <GreenCheckmark /> : <ExclamationCircle />}
             <AccountInfo account={ownerAddress} />
-          </p>
+          </div>
         </>
-      )}
-      {isVerified ? (
-        <ArrowPath />
-      ) : isVerified ? (
-        <CheckBadge />
-      ) : (
-        <ExclamationCircle />
       )}
     </div>
   );
