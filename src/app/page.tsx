@@ -17,11 +17,11 @@ export default function Home() {
           <h4 className="text-xl text-gray-900 dark:text-white">
             Content verification is a two step process
           </h4>
-          <div className="text-md text-gray-900 dark:text-white">
+          <div className="mt-5 ml-2 text-md text-gray-900 dark:text-white">
             <span className="font-bold">Step one:</span> Add content and sign
             the IPFS hash
           </div>
-          <div className="text-md text-gray-900 dark:text-white">
+          <div className="ml-2 text-md text-gray-900 dark:text-white">
             <span className="font-bold">Step two:</span> Look up IPFS hash to
             verify source account
           </div>
@@ -31,13 +31,13 @@ export default function Home() {
           <span className="text-xl text-gray-900 dark:text-white text-left">
             Look up IFPS hash to verify content ownership:
           </span>
-          <div>
+          <div className="mt-5 ml-2">
             <span className="text-sm font-bold">Unverified: </span>
             <span className="text-xs text-gray-900 dark:text-white text-left">
               QmQqzMTavQgT4f4T5v6PWBp7XNKtoPmC9jvn12WPT3gkSE
             </span>
           </div>
-          <div>
+          <div className="ml-2">
             <span className="text-sm font-bold">Verified: </span>
             <span className="text-xs text-gray-900 dark:text-white text-left">
               QmUiAxDHZMJSVM7umzAZ1ojJjZmxWGWUffyiG1v8TC7mob
