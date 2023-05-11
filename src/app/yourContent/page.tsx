@@ -74,7 +74,7 @@ export default function YourContent() {
             "Sign content to have it displayed here!"
           ) : (
             <div>
-              <div>
+              <div className="m-2">
                 {imageIndex + 1} of {userHashes.length}
               </div>
               <DisplayContent
