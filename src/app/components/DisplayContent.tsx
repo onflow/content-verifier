@@ -16,7 +16,7 @@ export const DisplayContent = ({
   ownerAddress?: string | null;
 }) => {
   const fullLink = `${IPFS_ROOT}${hash}`;
-  console.log("display isVerified", isVerified);
+
   return (
     <div className="m-2">
       {hash && (

@@ -10,10 +10,12 @@ export const SignHash = ({ onStatusChange, hash }: SignHashProps) => {
   const { onSign, txStatus } = useSign();
 
   let buttonText = "Sign Hash";
-  if (txStatus === 3) {
-    buttonText = "Signing...";
-  } else if (txStatus === 4) {
-    buttonText = "Signed!!!!";
+  if (txStatus) {
+    if ([1, 2, 3].includes(txStatus)) {
+      buttonText = "Signing...";
+    } else if (txStatus === 4) {
+      buttonText = "Signed!!!!";
+    }
   }
 
   useEffect(() => {
